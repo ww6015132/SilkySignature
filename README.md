@@ -15,4 +15,4 @@ Download SilkySignature or grab via Gradle:
 compile 'com.williamww:silky-signature:0.0.2'
 ```
 
-Retrofit requires at minimum Java 7 or Android 4.0.
+SilkySignature requires at minimum Java 7 or Android 4.0.
