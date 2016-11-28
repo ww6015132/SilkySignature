@@ -4,6 +4,7 @@ SilkySignature
 
 A smooth and silky signature pad for android.
 
+![app screenshot](signature.png)
 
 Download
 --------
