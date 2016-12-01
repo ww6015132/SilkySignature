@@ -51,5 +51,3 @@ To get signature image
 * `getSignatureBitmap()` - A signature bitmap with a white background.
 * `getTransparentSignatureBitmap()` - A signature bitmap with a transparent background.
 * `getSignatureSvg()` - A signature Scalable Vector Graphics document.
-
-SilkySignature requires at minimum Java 7 or Android 4.0.

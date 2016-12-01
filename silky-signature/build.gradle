@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/ww6015132/SilkySignature'
     gitUrl = 'https://github.com/ww6015132/SilkySignature.git'
 
-    libraryVersion = '0.0.2'
+    libraryVersion = '0.0.4'
 
     developerId = 'ww6015132'
     developerName = 'William Wang'
@@ -29,7 +29,7 @@ android {
     buildToolsVersion "24.0.1"
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 9
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
