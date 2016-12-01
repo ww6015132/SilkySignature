@@ -12,7 +12,7 @@ Download
 Download SilkySignature or grab via Gradle:
 
 ```groovy
-compile 'com.williamww:silky-signature:0.0.2'
+compile 'com.williamww:silky-signature:0.0.4'
 ```
 
 Example
