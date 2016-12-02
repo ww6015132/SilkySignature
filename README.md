@@ -14,7 +14,15 @@ Download SilkySignature or grab via Gradle:
 ```groovy
 compile 'com.williamww:silky-signature:0.0.6'
 ```
-
+or via Maven
+```groovy
+<dependency>
+<groupId>com.williamww</groupId>
+<artifactId>silky-signature</artifactId>
+<version>0.0.6</version>
+<type>aar</type>
+</dependency>
+```
 Example
 --------
 
