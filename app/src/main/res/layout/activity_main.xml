@@ -17,7 +17,7 @@
         android:layout_above="@+id/buttons_container">
 
         <FrameLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_above="@+id/signature_pad_description"
             android:layout_marginBottom="8dp"
