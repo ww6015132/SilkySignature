@@ -49,6 +49,7 @@ public class SignaturePad extends View {
     private float mVelocityFilterWeight;
     private OnSignedListener mOnSignedListener;
     private boolean mClearOnDoubleClick;
+    private Matrix.ScaleToFit scaleToFit;
 
     //Click values
     private long mFirstClick;
@@ -61,6 +62,7 @@ public class SignaturePad extends View {
     private final int DEFAULT_ATTR_PEN_COLOR = Color.BLACK;
     private final float DEFAULT_ATTR_VELOCITY_FILTER_WEIGHT = 0.9f;
     private final boolean DEFAULT_ATTR_CLEAR_ON_DOUBLE_CLICK = false;
+    private final int DEFAULT_ATTR_SCALETOFIT = 0;
 
     private Paint mPaint = new Paint();
     private Bitmap mSignatureBitmap = null;
@@ -81,6 +83,9 @@ public class SignaturePad extends View {
             mPaint.setColor(a.getColor(R.styleable.SignaturePad_penColor, DEFAULT_ATTR_PEN_COLOR));
             mVelocityFilterWeight = a.getFloat(R.styleable.SignaturePad_velocityFilterWeight, DEFAULT_ATTR_VELOCITY_FILTER_WEIGHT);
             mClearOnDoubleClick = a.getBoolean(R.styleable.SignaturePad_clearOnDoubleClick, DEFAULT_ATTR_CLEAR_ON_DOUBLE_CLICK);
+            int scaleToFitType = a.getInt(R.styleable.SignaturePad_scaleToFit, DEFAULT_ATTR_SCALETOFIT);
+            scaleToFit = scaleToFitType == 1? Matrix.ScaleToFit.FILL: Matrix.ScaleToFit.CENTER;
+
         } finally {
             a.recycle();
         }
@@ -145,6 +150,15 @@ public class SignaturePad extends View {
      */
     public void setVelocityFilterWeight(float velocityFilterWeight) {
         mVelocityFilterWeight = velocityFilterWeight;
+    }
+
+    /**
+     * Set the ScaleToFit type.
+     *
+     * @param scaleToFit the scaleToFit when loading a bitmap.
+     */
+    public void setScaleToFit(Matrix.ScaleToFit scaleToFit) {
+        this.scaleToFit = scaleToFit;
     }
 
     public void clear() {
@@ -256,7 +270,7 @@ public class SignaturePad extends View {
             tempDst.set(0, 0, vWidth, vHeight);
 
             Matrix drawMatrix = new Matrix();
-            drawMatrix.setRectToRect(tempSrc, tempDst, Matrix.ScaleToFit.CENTER);
+            drawMatrix.setRectToRect(tempSrc, tempDst, scaleToFit);
 
             Canvas canvas = new Canvas(mSignatureBitmap);
             canvas.drawBitmap(signature, drawMatrix, null);
