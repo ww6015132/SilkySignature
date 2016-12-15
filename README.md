@@ -23,6 +23,12 @@ or via Maven
 <type>aar</type>
 </dependency>
 ```
+
+Note
+--------
+You MUST request runtime permission when you are trying to save the signature image!
+
+
 Example
 --------
 

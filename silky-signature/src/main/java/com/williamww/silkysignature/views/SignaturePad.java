@@ -179,7 +179,7 @@ public class SignaturePad extends View {
                 mLastTouchX = eventX;
                 mLastTouchY = eventY;
                 addPoint(getNewPoint(eventX, eventY));
-                if(mOnSignedListener != null) mOnSignedListener.onStartSigning();
+                if (mOnSignedListener != null) mOnSignedListener.onStartSigning();
 
             case MotionEvent.ACTION_MOVE:
                 resetDirtyRect(eventX, eventY);
@@ -234,6 +234,29 @@ public class SignaturePad extends View {
         Canvas canvas = new Canvas(whiteBgBitmap);
         canvas.drawColor(Color.WHITE);
         canvas.drawBitmap(originalBitmap, 0, 0, null);
+        return whiteBgBitmap;
+    }
+
+    /**
+     * @param quality Hint to the compressor, 0-100. 0 meaning compress for
+     *                small size, 100 meaning compress for max quality. Some
+     *                formats, like PNG which is lossless, will ignore the
+     *                quality setting
+     */
+    public Bitmap getCompressedSignatureBitmap(int quality) {
+
+        if (quality < 0) {
+            quality = 0;
+        } else if (quality > 100) {
+            quality = 100;
+        }
+
+        Bitmap originalBitmap = getTransparentSignatureBitmap();
+        Bitmap whiteBgBitmap = Bitmap.createBitmap(originalBitmap.getWidth(), originalBitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(whiteBgBitmap);
+        canvas.drawColor(Color.WHITE);
+        canvas.drawBitmap(originalBitmap, 0, 0, null);
+//        whiteBgBitmap.compress(Bitmap.CompressFormat.JPEG, quality,)
         return whiteBgBitmap;
     }
 
@@ -297,9 +320,9 @@ public class SignaturePad extends View {
         int backgroundColor = Color.TRANSPARENT;
 
         int xMin = Integer.MAX_VALUE,
-            xMax = Integer.MIN_VALUE,
-            yMin = Integer.MAX_VALUE,
-            yMax = Integer.MIN_VALUE;
+                xMax = Integer.MIN_VALUE,
+                yMin = Integer.MAX_VALUE,
+                yMax = Integer.MIN_VALUE;
 
         boolean foundPixel = false;
 
@@ -364,7 +387,7 @@ public class SignaturePad extends View {
                 break;
         }
 
-      return Bitmap.createBitmap(mSignatureBitmap, xMin, yMin, xMax - xMin, yMax - yMin);
+        return Bitmap.createBitmap(mSignatureBitmap, xMin, yMin, xMax - xMin, yMax - yMin);
     }
 
     private boolean isDoubleClick() {
@@ -394,7 +417,7 @@ public class SignaturePad extends View {
             timedPoint = new TimedPoint();
         } else {
             // Get point from cache
-            timedPoint = mPointsCache.remove(mCacheSize-1);
+            timedPoint = mPointsCache.remove(mCacheSize - 1);
         }
 
         return timedPoint.set(x, y);
@@ -448,7 +471,7 @@ public class SignaturePad extends View {
 
             recyclePoint(c2);
             recyclePoint(c3);
-            
+
         } else if (pointsCount == 1) {
             // To reduce the initial lag make it work with 3 mPoints
             // by duplicating the first point
@@ -577,13 +600,15 @@ public class SignaturePad extends View {
         }
     }
 
-    private int convertDpToPx(float dp){
+    private int convertDpToPx(float dp) {
         return Math.round(getContext().getResources().getDisplayMetrics().density * dp);
     }
 
     public interface OnSignedListener {
         void onStartSigning();
+
         void onSigned();
+
         void onClear();
     }
 }
