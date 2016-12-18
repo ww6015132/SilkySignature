@@ -26,7 +26,7 @@ or via Maven
 
 Note
 --------
-You MUST request runtime permission when you are trying to save the signature image!
+You MUST request runtime permission when you are trying to save the signature image in versions higher than 6.0!
 
 
 Example
