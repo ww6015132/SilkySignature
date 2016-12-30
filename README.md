@@ -10,8 +10,8 @@ Updates
 --------
 Method added
 * ` getCompressedSignatureBitmap(int compressLevel)`  - compressLeven is from 1-100, which mean compress percentage of bitmap
-* ` getCompressedSignatureBitmap(int desiredWidth)`  - desiredWidth is target width, which would adjust height automatically
-* ` getCompressedSignatureBitmap(int desiredWidth,int desiredHeight)`  - desiredWidth is target width and desiredHeight is target height
+* ` getFixedSizeSignatureBitmap(int desiredWidth)`  - desiredWidth is target width, which would adjust height automatically
+* ` getFixedSizeSignatureBitmap(int desiredWidth,int desiredHeight)`  - desiredWidth is target width and desiredHeight is target height
 
 Download
 --------
@@ -26,7 +26,7 @@ or via Maven
 <dependency>
 <groupId>com.williamww</groupId>
 <artifactId>silky-signature</artifactId>
-<version>0.0.6</version>
+<version>0.0.7</version>
 <type>aar</type>
 </dependency>
 ```
