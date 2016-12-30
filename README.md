@@ -19,7 +19,7 @@ Download
 Download SilkySignature or grab via Gradle:
 
 ```groovy
-compile 'com.williamww:silky-signature:0.0.6'
+compile 'com.williamww:silky-signature:0.0.7'
 ```
 or via Maven
 ```xml
