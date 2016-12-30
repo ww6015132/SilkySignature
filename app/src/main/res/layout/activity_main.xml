@@ -51,14 +51,25 @@
             android:id="@+id/save_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:singleLine="true"
             android:layout_weight="1"
             android:enabled="false"
             android:text="@string/save_signature" />
 
         <Button
+            android:id="@+id/compress_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:layout_weight="1"
+            android:enabled="false"
+            android:text="@string/compress_signature" />
+
+        <Button
             android:id="@+id/clear_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:singleLine="true"
             android:layout_weight="1"
             android:enabled="false"
             android:text="@string/clear_pad" />

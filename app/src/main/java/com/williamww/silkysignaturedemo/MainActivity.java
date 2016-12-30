@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private SignaturePad mSignaturePad;
     private Button mClearButton;
     private Button mSaveButton;
+    private Button mCompressButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +44,14 @@ public class MainActivity extends AppCompatActivity {
             public void onSigned() {
                 mSaveButton.setEnabled(true);
                 mClearButton.setEnabled(true);
+                mCompressButton.setEnabled(true);
             }
 
             @Override
             public void onClear() {
                 mSaveButton.setEnabled(false);
                 mClearButton.setEnabled(false);
+                mCompressButton.setEnabled(false);
             }
         });
 
@@ -66,15 +69,28 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Bitmap signatureBitmap = mSignaturePad.getSignatureBitmap();
-                if(addJpgSignatureToGallery(signatureBitmap)) {
+                if (addJpgSignatureToGallery(signatureBitmap)) {
                     Toast.makeText(MainActivity.this, "Signature saved into the Gallery", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MainActivity.this, "Unable to store the signature", Toast.LENGTH_SHORT).show();
                 }
-                if(addSvgSignatureToGallery(mSignaturePad.getSignatureSvg())) {
+                if (addSvgSignatureToGallery(mSignaturePad.getSignatureSvg())) {
                     Toast.makeText(MainActivity.this, "SVG Signature saved into the Gallery", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MainActivity.this, "Unable to store the SVG signature", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        mCompressButton = (Button) findViewById(R.id.compress_button);
+        mCompressButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bitmap signatureBitmap = mSignaturePad.getCompressedSignatureBitmap(50);
+                if (addJpgSignatureToGallery(signatureBitmap)) {
+                    Toast.makeText(MainActivity.this, "50% compressed signature saved into the Gallery", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MainActivity.this, "Unable to store the signature", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -125,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             File svgFile = new File(getAlbumStorageDir("SignaturePad"), String.format("Signature_%d.svg", System.currentTimeMillis()));
             OutputStream stream = new FileOutputStream(svgFile);
-            OutputStreamWriter writer  = new OutputStreamWriter(stream);
+            OutputStreamWriter writer = new OutputStreamWriter(stream);
             writer.write(signatureSvg);
             writer.close();
             stream.flush();

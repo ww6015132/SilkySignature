@@ -238,25 +238,70 @@ public class SignaturePad extends View {
     }
 
     /**
-     * @param quality Hint to the compressor, 0-100. 0 meaning compress for
-     *                small size, 100 meaning compress for max quality. Some
-     *                formats, like PNG which is lossless, will ignore the
-     *                quality setting
+     * @param compressPercentage Hint to the compressor, 0-100 percent. 0 meaning compress for
+     *                           small size, 100 meaning compress for max quality. Some
+     *                           formats, like PNG which is lossless, will ignore the
+     *                           quality setting
      */
-    public Bitmap getCompressedSignatureBitmap(int quality) {
+    public Bitmap getCompressedSignatureBitmap(int compressPercentage) {
 
-        if (quality < 0) {
-            quality = 0;
-        } else if (quality > 100) {
-            quality = 100;
+        if (compressPercentage < 0) {
+            compressPercentage = 0;
+        } else if (compressPercentage > 100) {
+            compressPercentage = 100;
         }
-
         Bitmap originalBitmap = getTransparentSignatureBitmap();
-        Bitmap whiteBgBitmap = Bitmap.createBitmap(originalBitmap.getWidth(), originalBitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        int originalWidth = originalBitmap.getWidth();
+        int originalHeight = originalBitmap.getHeight();
+
+        int targetWidth = originalWidth * compressPercentage / 100; // your arbitrary fixed limit
+        int targetHeight = (int) (originalHeight * targetWidth / (double) originalWidth);
+
+        Bitmap whiteBgBitmap = Bitmap.createBitmap(originalWidth, originalHeight, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(whiteBgBitmap);
         canvas.drawColor(Color.WHITE);
         canvas.drawBitmap(originalBitmap, 0, 0, null);
-//        whiteBgBitmap.compress(Bitmap.CompressFormat.JPEG, quality,)
+        whiteBgBitmap = Bitmap.createScaledBitmap(originalBitmap, targetWidth, targetHeight, true);
+        return whiteBgBitmap;
+    }
+
+    /**
+     * @param deiredWidth Desired width of the bitmap
+     */
+    public Bitmap getFixedSizeSignatureBitmap(int deiredWidth) {
+
+        Bitmap originalBitmap = getTransparentSignatureBitmap();
+        int originalWidth = originalBitmap.getWidth();
+        int originalHeight = originalBitmap.getHeight();
+
+        int targetWidth = deiredWidth; // your arbitrary fixed limit
+        int targetHeight = (int) (originalHeight * targetWidth / (double) originalWidth);
+
+        Bitmap whiteBgBitmap = Bitmap.createBitmap(originalWidth, originalHeight, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(whiteBgBitmap);
+        canvas.drawColor(Color.WHITE);
+        canvas.drawBitmap(originalBitmap, 0, 0, null);
+        whiteBgBitmap = Bitmap.createScaledBitmap(originalBitmap, targetWidth, targetHeight, true);
+        return whiteBgBitmap;
+    }
+
+    /**
+     * @param deiredWidth Desired width of the bitmap
+     */
+    public Bitmap getFixedSizeSignatureBitmap(int deiredWidth,int desiredHeight) {
+
+        Bitmap originalBitmap = getTransparentSignatureBitmap();
+        int originalWidth = originalBitmap.getWidth();
+        int originalHeight = originalBitmap.getHeight();
+
+        int targetWidth = deiredWidth; // your arbitrary fixed limit
+        int targetHeight = desiredHeight;
+
+        Bitmap whiteBgBitmap = Bitmap.createBitmap(originalWidth, originalHeight, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(whiteBgBitmap);
+        canvas.drawColor(Color.WHITE);
+        canvas.drawBitmap(originalBitmap, 0, 0, null);
+        whiteBgBitmap = Bitmap.createScaledBitmap(originalBitmap, targetWidth, targetHeight, true);
         return whiteBgBitmap;
     }
 

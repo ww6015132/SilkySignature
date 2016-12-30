@@ -3,4 +3,5 @@
     <string name="agreement">I agree the terms and conditions.</string>
     <string name="clear_pad">Clear</string>
     <string name="save_signature">Save</string>
+    <string name="compress_signature">Scale</string>
 </resources>

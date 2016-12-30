@@ -6,6 +6,13 @@ A smooth and silky signature pad for android.
 
 ![app screenshot](signature.png)
 
+Updates
+--------
+Method added
+* ` getCompressedSignatureBitmap(int compressLevel)`  - compressLeven is from 1-100, which mean compress percentage of bitmap
+* ` getCompressedSignatureBitmap(int desiredWidth)`  - desiredWidth is target width, which would adjust height automatically
+* ` getCompressedSignatureBitmap(int desiredWidth,int desiredHeight)`  - desiredWidth is target width and desiredHeight is target height
+
 Download
 --------
 
@@ -26,7 +33,7 @@ or via Maven
 
 Note
 --------
-You MUST request runtime permission when you are trying to save the signature image in versions higher than 6.0!
+You MUST request runtime permission when you are trying to save the signature image on version 6.0  or higher!
 
 
 Example
