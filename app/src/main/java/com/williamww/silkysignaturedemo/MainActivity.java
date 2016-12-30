@@ -50,6 +50,11 @@ public class MainActivity extends AppCompatActivity {
                 mSaveButton.setEnabled(false);
                 mClearButton.setEnabled(false);
             }
+
+            @Override
+            public void onSignatureLoaded() {
+
+            }
         });
 
         mClearButton = (Button) findViewById(R.id.clear_button);

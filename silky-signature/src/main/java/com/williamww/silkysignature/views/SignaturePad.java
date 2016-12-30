@@ -50,6 +50,7 @@ public class SignaturePad extends View {
     private OnSignedListener mOnSignedListener;
     private boolean mClearOnDoubleClick;
     private Matrix.ScaleToFit scaleToFit;
+    private float scaleFactor = 1f;
 
     //Click values
     private long mFirstClick;
@@ -135,12 +136,20 @@ public class SignaturePad extends View {
     }
 
     /**
-     * Set the maximum width of the stroke in pixel.
+     * Set the scale factor of the stroke.
      *
-     * @param maxWidth the width in dp.
+     * @param scaleFactor the scale factor.
      */
-    public void setMaxWidth(float maxWidth) {
-        mMaxWidth = convertDpToPx(maxWidth);
+    public void setScaleFactor(float scaleFactor) {
+       mMaxWidth *= scaleFactor;
+       mMinWidth *= scaleFactor;
+        this.scaleFactor = scaleFactor;
+    }
+
+    public void resetScale(){
+        mMaxWidth /= scaleFactor;
+        mMinWidth /= scaleFactor;
+        scaleFactor = 1f;
     }
 
     /**
@@ -173,6 +182,24 @@ public class SignaturePad extends View {
         }
 
         setIsEmpty(true);
+
+        invalidate();
+    }
+
+    private void silentClear() {
+        mSvgBuilder.clear();
+        mPoints = new ArrayList<>();
+        mLastVelocity = 0;
+        mLastWidth = (mMinWidth + mMaxWidth) / 2;
+
+        if (mSignatureBitmap != null) {
+            mSignatureBitmap = null;
+            ensureSignatureBitmap();
+        }
+
+        if(mOnSignedListener != null){
+            mOnSignedListener.onSignatureLoaded();
+        }
 
         invalidate();
     }
@@ -254,7 +281,7 @@ public class SignaturePad extends View {
     public void setSignatureBitmap(final Bitmap signature) {
         // View was laid out...
         if (ViewCompat.isLaidOut(this)) {
-            clear();
+            silentClear();
             ensureSignatureBitmap();
 
             RectF tempSrc = new RectF();
@@ -599,5 +626,6 @@ public class SignaturePad extends View {
         void onStartSigning();
         void onSigned();
         void onClear();
+        void onSignatureLoaded();
     }
 }
