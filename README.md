@@ -13,20 +13,23 @@ Method added
 * ` getFixedSizeSignatureBitmap(int desiredWidth)`  - desiredWidth is target width, which would adjust height automatically
 * ` getFixedSizeSignatureBitmap(int desiredWidth,int desiredHeight)`  - desiredWidth is target width and desiredHeight is target height
 
+Bug fixed
+* SVG double click bug fixed
+
 Download
 --------
 
 Download SilkySignature or grab via Gradle:
 
 ```groovy
-compile 'com.williamww:silky-signature:0.0.8'
+compile 'com.williamww:silky-signature:0.0.9'
 ```
 or via Maven
 ```xml
 <dependency>
 <groupId>com.williamww</groupId>
 <artifactId>silky-signature</artifactId>
-<version>0.0.8</version>
+<version>0.0.9</version>
 <type>aar</type>
 </dependency>
 ```
