@@ -1,13 +1,13 @@
 package com.williamww.silkysignaturedemo;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -21,7 +21,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 
-public class MainActivity extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity
+{
 
     private SignaturePad mSignaturePad;
     private Button mClearButton;
@@ -33,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mSignaturePad = (SignaturePad) findViewById(R.id.signature_pad);
+        mSignaturePad = findViewById(R.id.signature_pad);
         mSignaturePad.setOnSignedListener(new SignaturePad.OnSignedListener() {
             @Override
             public void onStartSigning() {
@@ -55,8 +58,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mClearButton = (Button) findViewById(R.id.clear_button);
-        mSaveButton = (Button) findViewById(R.id.save_button);
+        mClearButton = findViewById(R.id.clear_button);
+        mSaveButton = findViewById(R.id.save_button);
 
         mClearButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mCompressButton = (Button) findViewById(R.id.compress_button);
+        mCompressButton = findViewById(R.id.compress_button);
         mCompressButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
         stream.close();
     }
 
+    @SuppressLint("DefaultLocale")
     public boolean addJpgSignatureToGallery(Bitmap signature) {
         boolean result = false;
         try {
@@ -136,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.this.sendBroadcast(mediaScanIntent);
     }
 
+    @SuppressLint("DefaultLocale")
     public boolean addSvgSignatureToGallery(String signatureSvg) {
         boolean result = false;
         try {
