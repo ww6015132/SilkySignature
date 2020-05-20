@@ -24,15 +24,6 @@ Download SilkySignature or grab via Gradle:
 ```groovy
 implementation 'com.williamww:silky-signature:0.1.0'
 ```
-or via Maven
-```xml
-<dependency>
-<groupId>com.williamww</groupId>
-<artifactId>silky-signature</artifactId>
-<version>0.1.0</version>
-<type>aar</type>
-</dependency>
-```
 
 Note
 --------
@@ -74,4 +65,4 @@ public void onClear() {
 To get signature image
 * `getSignatureBitmap()` - A signature bitmap with a white background.
 * `getTransparentSignatureBitmap()` - A signature bitmap with a transparent background.
-* `getSignatureSvg()` - A signature Scalable Vector Graphics document.
+* `getSignatureSvg()` - A signature Scalable Vector Graphics document in svg format.
