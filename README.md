@@ -22,14 +22,14 @@ Download
 Download SilkySignature or grab via Gradle:
 
 ```groovy
-implementation 'com.williamww:silky-signature:0.1.1'
+implementation 'com.williamww:silky-signature:0.1.0'
 ```
 or via Maven
 ```xml
 <dependency>
 <groupId>com.williamww</groupId>
 <artifactId>silky-signature</artifactId>
-<version>0.1.1</version>
+<version>0.1.0</version>
 <type>aar</type>
 </dependency>
 ```
