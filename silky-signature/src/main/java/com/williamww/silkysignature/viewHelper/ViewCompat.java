@@ -1,4 +1,4 @@
-package com.williamww.silkysignature.view;
+package com.williamww.silkysignature.viewHelper;
 
 import android.os.Build;
 import android.view.View;

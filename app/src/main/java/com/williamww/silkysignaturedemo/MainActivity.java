@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.williamww.silkysignature.views.SignaturePad;
+import com.williamww.silkysignature.UI.SilkySignaturePad;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -26,7 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class MainActivity extends AppCompatActivity
 {
 
-    private SignaturePad mSignaturePad;
+    private SilkySignaturePad mSilkySignaturePad;
     private Button mClearButton;
     private Button mSaveButton;
     private Button mCompressButton;
@@ -36,8 +36,8 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mSignaturePad = findViewById(R.id.signature_pad);
-        mSignaturePad.setOnSignedListener(new SignaturePad.OnSignedListener() {
+        mSilkySignaturePad = findViewById(R.id.signature_pad);
+        mSilkySignaturePad.setOnSignedListener(new SilkySignaturePad.OnSignedListener() {
             @Override
             public void onStartSigning() {
                 Toast.makeText(MainActivity.this, "OnStartSigning", Toast.LENGTH_SHORT).show();
@@ -64,20 +64,20 @@ public class MainActivity extends AppCompatActivity
         mClearButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mSignaturePad.clear();
+                mSilkySignaturePad.clear();
             }
         });
 
         mSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bitmap signatureBitmap = mSignaturePad.getSignatureBitmap();
+                Bitmap signatureBitmap = mSilkySignaturePad.getSignatureBitmap();
                 if (addJpgSignatureToGallery(signatureBitmap)) {
                     Toast.makeText(MainActivity.this, "Signature saved into the Gallery", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MainActivity.this, "Unable to store the signature", Toast.LENGTH_SHORT).show();
                 }
-                if (addSvgSignatureToGallery(mSignaturePad.getSignatureSvg())) {
+                if (addSvgSignatureToGallery(mSilkySignaturePad.getSignatureSvg())) {
                     Toast.makeText(MainActivity.this, "SVG Signature saved into the Gallery", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MainActivity.this, "Unable to store the SVG signature", Toast.LENGTH_SHORT).show();
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity
         mCompressButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bitmap signatureBitmap = mSignaturePad.getCompressedSignatureBitmap(50);
+                Bitmap signatureBitmap = mSilkySignaturePad.getCompressedSignatureBitmap(50);
                 if (addJpgSignatureToGallery(signatureBitmap)) {
                     Toast.makeText(MainActivity.this, "50% compressed signature saved into the Gallery", Toast.LENGTH_SHORT).show();
                 } else {

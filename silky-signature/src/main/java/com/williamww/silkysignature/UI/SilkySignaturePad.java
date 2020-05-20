@@ -1,4 +1,4 @@
-package com.williamww.silkysignature.views;
+package com.williamww.silkysignature.UI;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -15,18 +15,18 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 
 import com.williamww.silkysignature.R;
-import com.williamww.silkysignature.utils.Bezier;
-import com.williamww.silkysignature.utils.ControlTimedPoints;
-import com.williamww.silkysignature.utils.SvgBuilder;
-import com.williamww.silkysignature.utils.TimedPoint;
-import com.williamww.silkysignature.view.ViewCompat;
-import com.williamww.silkysignature.view.ViewTreeObserverCompat;
+import com.williamww.silkysignature.drawerControllers.CurveBezier;
+import com.williamww.silkysignature.drawerControllers.ControlTimedPoints;
+import com.williamww.silkysignature.svgUtils.SvgBuilder;
+import com.williamww.silkysignature.drawerControllers.TimedPoint;
+import com.williamww.silkysignature.viewHelper.ViewCompat;
+import com.williamww.silkysignature.viewHelper.ViewTreeObserverCompat;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class SignaturePad extends View {
+public class SilkySignaturePad extends View {
     //View state
     private List<TimedPoint> mPoints;
     private boolean mIsEmpty;
@@ -41,7 +41,7 @@ public class SignaturePad extends View {
     // Cache
     private List<TimedPoint> mPointsCache = new ArrayList<>();
     private ControlTimedPoints mControlTimedPointsCached = new ControlTimedPoints();
-    private Bezier mBezierCached = new Bezier();
+    private CurveBezier mCurveBezierCached = new CurveBezier();
 
     //Configurable parameters
     private int mMinWidth;
@@ -66,21 +66,21 @@ public class SignaturePad extends View {
     private Bitmap mSignatureBitmap = null;
     private Canvas mSignatureBitmapCanvas = null;
 
-    public SignaturePad(Context context, AttributeSet attrs) {
+    public SilkySignaturePad(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         TypedArray a = context.getTheme().obtainStyledAttributes(
                 attrs,
-                R.styleable.SignaturePad,
+                R.styleable.SilkySignaturePad,
                 0, 0);
 
         //Configurable parameters
         try {
-            mMinWidth = a.getDimensionPixelSize(R.styleable.SignaturePad_penMinWidth, convertDpToPx(DEFAULT_ATTR_PEN_MIN_WIDTH_PX));
-            mMaxWidth = a.getDimensionPixelSize(R.styleable.SignaturePad_penMaxWidth, convertDpToPx(DEFAULT_ATTR_PEN_MAX_WIDTH_PX));
-            mPaint.setColor(a.getColor(R.styleable.SignaturePad_penColor, DEFAULT_ATTR_PEN_COLOR));
-            mVelocityFilterWeight = a.getFloat(R.styleable.SignaturePad_velocityFilterWeight, DEFAULT_ATTR_VELOCITY_FILTER_WEIGHT);
-            mClearOnDoubleClick = a.getBoolean(R.styleable.SignaturePad_clearOnDoubleClick, DEFAULT_ATTR_CLEAR_ON_DOUBLE_CLICK);
+            mMinWidth = a.getDimensionPixelSize(R.styleable.SilkySignaturePad_penMinWidth, convertDpToPx(DEFAULT_ATTR_PEN_MIN_WIDTH_PX));
+            mMaxWidth = a.getDimensionPixelSize(R.styleable.SilkySignaturePad_penMaxWidth, convertDpToPx(DEFAULT_ATTR_PEN_MAX_WIDTH_PX));
+            mPaint.setColor(a.getColor(R.styleable.SilkySignaturePad_penColor, DEFAULT_ATTR_PEN_COLOR));
+            mVelocityFilterWeight = a.getFloat(R.styleable.SilkySignaturePad_velocityFilterWeight, DEFAULT_ATTR_VELOCITY_FILTER_WEIGHT);
+            mClearOnDoubleClick = a.getBoolean(R.styleable.SilkySignaturePad_clearOnDoubleClick, DEFAULT_ATTR_CLEAR_ON_DOUBLE_CLICK);
         } finally {
             a.recycle();
         }
@@ -486,7 +486,7 @@ public class SignaturePad extends View {
             TimedPoint c3 = tmp.c1;
             recyclePoint(tmp.c2);
 
-            Bezier curve = mBezierCached.set(mPoints.get(1), c2, c3, mPoints.get(2));
+            CurveBezier curve = mCurveBezierCached.set(mPoints.get(1), c2, c3, mPoints.get(2));
 
             TimedPoint startPoint = curve.startPoint;
             TimedPoint endPoint = curve.endPoint;
@@ -525,7 +525,7 @@ public class SignaturePad extends View {
         }
     }
 
-    private void addBezier(Bezier curve, float startWidth, float endWidth) {
+    private void addBezier(CurveBezier curve, float startWidth, float endWidth) {
         mSvgBuilder.append(curve, (startWidth + endWidth) / 2);
         ensureSignatureBitmap();
         float originalWidth = mPaint.getStrokeWidth();

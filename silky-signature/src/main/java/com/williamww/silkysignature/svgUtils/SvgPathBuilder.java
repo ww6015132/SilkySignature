@@ -1,4 +1,4 @@
-package com.williamww.silkysignature.utils;
+package com.williamww.silkysignature.svgUtils;
 
 
 /**

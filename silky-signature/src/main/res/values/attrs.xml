@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="SignaturePad">
+    <declare-styleable name="SilkySignaturePad">
         <attr name="penMinWidth" format="dimension" />
         <attr name="penMaxWidth" format="dimension" />
         <attr name="penColor" format="color" />

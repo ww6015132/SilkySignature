@@ -1,4 +1,6 @@
-package com.williamww.silkysignature.utils;
+package com.williamww.silkysignature.svgUtils;
+
+import com.williamww.silkysignature.drawerControllers.CurveBezier;
 
 public class SvgBuilder {
 
@@ -38,7 +40,7 @@ public class SvgBuilder {
                 .toString();
     }
 
-    public SvgBuilder append(final Bezier curve, final float strokeWidth) {
+    public SvgBuilder append(final CurveBezier curve, final float strokeWidth) {
         final Integer roundedStrokeWidth = Math.round(strokeWidth);
         final SvgPoint curveStartSvgPoint = new SvgPoint(curve.startPoint);
         final SvgPoint curveControlSvgPoint1 = new SvgPoint(curve.control1);

@@ -1,14 +1,14 @@
-package com.williamww.silkysignature.utils;
+package com.williamww.silkysignature.drawerControllers;
 
-public class Bezier {
+public class CurveBezier {
 
     public TimedPoint startPoint;
     public TimedPoint control1;
     public TimedPoint control2;
     public TimedPoint endPoint;
 
-    public Bezier set(TimedPoint startPoint, TimedPoint control1,
-                  TimedPoint control2, TimedPoint endPoint) {
+    public CurveBezier set(TimedPoint startPoint, TimedPoint control1,
+                           TimedPoint control2, TimedPoint endPoint) {
         this.startPoint = startPoint;
         this.control1 = control1;
         this.control2 = control2;

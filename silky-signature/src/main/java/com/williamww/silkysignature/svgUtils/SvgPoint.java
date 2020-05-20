@@ -1,4 +1,6 @@
-package com.williamww.silkysignature.utils;
+package com.williamww.silkysignature.svgUtils;
+
+import com.williamww.silkysignature.drawerControllers.TimedPoint;
 
 /**
  * Represent a point as it would be in the generated SVG document.

@@ -33,7 +33,7 @@
             android:text="@string/agreement"
             android:textColor="@android:color/darker_gray" />
 
-        <com.williamww.silkysignature.views.SignaturePad
+        <com.williamww.silkysignature.UI.SilkySignaturePad
             android:id="@+id/signature_pad"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" />
