@@ -1,16 +1,20 @@
 package com.williamww.silkysignaturedemo;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.williamww.silkysignature.UI.SilkySignaturePad;
@@ -22,9 +26,9 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
-public class MainActivity extends AppCompatActivity
-{
+public class MainActivity extends AppCompatActivity {
 
     private SilkySignaturePad mSilkySignaturePad;
     private Button mClearButton;
@@ -35,7 +39,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        requestForPermission();
         mSilkySignaturePad = findViewById(R.id.signature_pad);
         mSilkySignaturePad.setOnSignedListener(new SilkySignaturePad.OnSignedListener() {
             @Override
@@ -103,6 +107,11 @@ public class MainActivity extends AppCompatActivity
         // Get the directory for the user's public pictures directory.
         File file = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES), albumName);
+        if (file.exists()){
+            Log.e("SignaturePad", "Exists");
+        } else {
+            Log.e("SignaturePad", "NOT Exists");
+        }
         if (!file.mkdirs()) {
             Log.e("SignaturePad", "Directory not created");
         }
@@ -157,5 +166,42 @@ public class MainActivity extends AppCompatActivity
             e.printStackTrace();
         }
         return result;
+    }
+
+    private void requestForPermission() {
+        int MyVersion = Build.VERSION.SDK_INT;
+        if (MyVersion > Build.VERSION_CODES.M)
+            ActivityCompat.requestPermissions(MainActivity.this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
+                    1);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(MainActivity.this, "Permission denied to read your External storage", Toast.LENGTH_SHORT).show();
+                    TextView tv = findViewById(R.id.signature_pad_description);
+                    tv.setText("Write Storage permission denied");
+                    tv.setTextColor(Color.RED);
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 }
