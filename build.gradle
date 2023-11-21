@@ -3,11 +3,12 @@
 buildscript {
     repositories {
         google()
-        jcenter()
         mavenCentral()
+        //noinspection JcenterRepositoryObsolete
+        jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.3'
+        classpath 'com.android.tools.build:gradle:4.2.2'
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
 
@@ -19,10 +20,12 @@ buildscript {
 allprojects {
     repositories {
         google()
+        mavenCentral()
+        //noinspection JcenterRepositoryObsolete
         jcenter()
     }
 }
 
-task clean(type: Delete) {
+tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }
